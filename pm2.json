@@ -6,7 +6,9 @@
             "watch"             : true,
             "merge_logs"        : true,
             "ignore_watch"      : [
-                "node_modules"
+                "node_modules",
+                "*.txt",
+                "*.json"
             ],
             "env": {
                 "NODE_ENV"      : "production"
