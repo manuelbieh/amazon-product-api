@@ -1,0 +1,16 @@
+{
+    "apps" : [
+        {
+            "name"              : "[AMAZON PRODUCT API]",
+            "script"            : "index.js",
+            "watch"             : true,
+            "merge_logs"        : true,
+            "ignore_watch"      : [
+                "node_modules"
+            ],
+            "env": {
+                "NODE_ENV"      : "production"
+            }
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "amazon-product-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelbieh/amazon-product-api.git"
+  },
+  "keywords": [],
+  "author": "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manuelbieh/amazon-product-api/issues"
+  },
+  "homepage": "https://github.com/manuelbieh/amazon-product-api#readme",
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
+    "babel-preset-es2015-node6": "^0.4.0",
+    "babel-register": "^6.23.0",
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "jsdom": "^9.11.0"
+  }
+}
