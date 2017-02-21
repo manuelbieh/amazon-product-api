@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-const csv = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'proxybonanza.csv'), { encoding: 'utf-8'});
+const csv = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'proxybonanza.csv'), {
+    encoding: 'utf-8'
+});
 
 const csvLineToUrl = (line) => {
     const [ip, port, user, pass] = line.split(';');

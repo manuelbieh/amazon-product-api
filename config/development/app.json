@@ -1,0 +1,23 @@
+{
+    "apps" : [
+        {
+            "name"              : "[AMAZON PRODUCT API]",
+            "script"            : "index.js",
+            "watch"             : true,
+            "merge_logs"        : true,
+            "cwd"               : "./src/",
+            "ignore_watch"      : [
+                "[\\/\\\\]\\./",
+                "[\\/\\\\]\\.*/",
+                "node_modules",
+                "tmp",
+                "cache",
+                "*.txt",
+                "*.json"
+            ],
+            "env": {
+                "NODE_ENV"      : "development"
+            }
+        }
+    ]
+}

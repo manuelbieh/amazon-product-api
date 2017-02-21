@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start config/development/app.json",
+    "start:develop": "pm2 start config/development/app.json",
+    "start:production": "pm2 start config/production/app.json"
   },
   "repository": {
     "type": "git",
@@ -12,7 +15,7 @@
   },
   "keywords": [],
   "author": "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)",
-  "license": "MIT",
+  "license": "Commercial",
   "bugs": {
     "url": "https://github.com/manuelbieh/amazon-product-api/issues"
   },
@@ -26,7 +29,9 @@
     "body-parser": "^1.16.1",
     "cors": "^2.8.1",
     "express": "^4.14.1",
+    "fs-promise": "^2.0.0",
     "jsdom": "^9.11.0",
-    "kue": "^0.11.5"
+    "kue": "^0.11.5",
+    "nconf": "^0.8.4"
   }
 }

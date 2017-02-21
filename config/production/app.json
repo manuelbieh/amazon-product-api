@@ -5,6 +5,8 @@
             "script"            : "index.js",
             "watch"             : true,
             "merge_logs"        : true,
+            "cwd"               : "./src/",
+            "exec_mode"         : "cluster",
             "ignore_watch"      : [
                 "[\\/\\\\]\\./",
                 "[\\/\\\\]\\.*/",

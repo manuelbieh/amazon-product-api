@@ -17,6 +17,7 @@ app.use(cors());
 
 app.use(routes);
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     const status = (err || {}).status || 501;
     return res.status(status).json({
