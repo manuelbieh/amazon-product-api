@@ -36,17 +36,17 @@ router.get('/products/:asin/images', (req, res, next) => {
 
 });
 
-router.get('/bestsellers/list', (req, res, next) => {
+//router.get('/bestsellers/list', (req, res, next) => {
 
-    return scraper.getAmazonBestsellersCategories({
-        tld: req.query.tld
-    })
-    .then((data) => {
-        return res.json(data);
-    })
-    .catch(next);
+//    return scraper.getAmazonBestsellersCategories({
+//        tld: req.query.tld
+//    })
+//    .then((data) => {
+//        return res.json(data);
+//    })
+//    .catch(next);
 
-});
+//});
 
 router.get('/categories', (req, res, next) => {
 

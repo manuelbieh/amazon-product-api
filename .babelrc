@@ -1,7 +1,6 @@
 {
     "presets": [
-        "es2015", 
-        "stage-0"
+        "es2015-node6"
     ],
     "ignore": [
         "node_modules/**"
