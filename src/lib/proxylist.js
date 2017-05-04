@@ -1,13 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 
-const csv = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'proxybonanza.csv'), {
+const csv = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'proxylist.csv'), {
     encoding: 'utf-8'
 });
 
 const csvLineToUrl = (line) => {
+
+    if (line === '') {
+        return;
+    }
+
     const [ip, port, user, pass] = line.split(';');
+
     return `http://${user}:${pass}@${ip}:${port}`;
+
 };
 
 export const getRandomProxy = () => {
