@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)",
-  "license": "Commercial",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/manuelbieh/amazon-product-api/issues"
   },
