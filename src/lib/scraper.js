@@ -12,8 +12,8 @@ const UserAgents = {
 
 const loadPage = ({ url, ua }) => {
 
-    ua = ua
-    || UserAgents[ua]
+    ua = UserAgents[ua]
+    || ua
     || 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36';
 
     return new Promise((resolve, reject) => {
@@ -66,7 +66,9 @@ export const getAmazonProductDetails = ({ asin, tld='de' }={}) => {
 export const getAmazonProductImages = ({ asin, tld='de' }={}) => {
 
     return loadPage({
-        url: `https://www.amazon.${tld}/dp/${asin}/?psc=1`
+        url: `https://www.amazon.${tld}/dp/${asin}/?psc=1`,
+        // ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1'
+        ua: 'iphone'
     })
     .then((document) => {
 

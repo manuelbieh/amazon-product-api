@@ -30,6 +30,10 @@ export default class AmazonDataExtractor {
 
     }
 
+    getUrl() {
+        return this.document.location.href;
+    }
+
     getAsin() {
 
         const document = this.document;
@@ -113,16 +117,21 @@ export default class AmazonDataExtractor {
 
         const uniqueImages = [];
 
-        const allImages = (
-            document.body.innerHTML
-            .match(/"hiRes":"(https:\/\/([a-z\-\.]+)images-amazon.com\/images\/I\/([\w.%\-]*)_SL1(5|0)00_.jpg)"/g)
-            || []
-        )
-        .map((image) => image.replace(/"/g,'').replace('hiRes:',''));
+        const allImages = Array.from(document.querySelectorAll('[data-a-hires][data-a-image-name="immersiveViewMainImage"]')).map((img) => {
+            return img.getAttribute('data-a-hires');
+        });
 
-        if (!allImages || !allImages.length) {
-            return;
-        }
+        // Old way / Desktop version. Buggy!
+        // const allImages = (
+        //     document.body.innerHTML
+        //     .match(/"hiRes":"(https:\/\/([a-z\-\.]+)images-amazon.com\/images\/I\/([\w.%\-]*)_SL1(5|0)00_.jpg)"/g)
+        //     || []
+        // )
+        // .map((image) => image.replace(/"/g,'').replace('hiRes:',''));
+        //
+        // if (!allImages || !allImages.length) {
+        //     return;
+        // }
 
         allImages.forEach((image) => {
 
@@ -144,6 +153,7 @@ export default class AmazonDataExtractor {
 
         return {
             // asin: this.getAsin(),
+            url: this.getUrl(),
             price: this.getPrice(),
             currency: this.getCurrency(),
             title: this.getTitle(),
