@@ -17,6 +17,7 @@ http://localhost:9190
 Routes:
 ```
 /products/:asin
+/products/:asin/rating
 /products/:asin/images
 ```
 
