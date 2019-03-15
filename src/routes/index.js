@@ -54,6 +54,7 @@ router.get('/products/:asin', (req, res, next) => {
 
 });
 
+
 router.get('/products/:asin/images', (req, res, next) => {
 
     const maxCacheAgeInSeconds = 600;
@@ -97,17 +98,48 @@ router.get('/products/:asin/images', (req, res, next) => {
 
 });
 
-//router.get('/bestsellers/list', (req, res, next) => {
+router.get('/products/:asin/rating', (req, res, next) => {
 
-//    return scraper.getAmazonBestsellersCategories({
-//        tld: req.query.tld
-//    })
-//    .then((data) => {
-//        return res.json(data);
-//    })
-//    .catch(next);
+    const maxCacheAgeInSeconds = 600;
+    const cacheFilePath = `${__dirname}/../cache/${req.params.asin}-rating.json`;
 
-//});
+    return fs.stat(cacheFilePath)
+    .catch(() => {})
+    .then((cacheFile) => {
+
+        // if cachefile exists and is not outdated, use data from there
+        if (cacheFile && ((new Date() - cacheFile.mtime)/1000) < maxCacheAgeInSeconds) {
+            return fs.readFile(cacheFilePath, {
+                encoding: 'utf-8'
+            })
+            .then((data) => {
+                return JSON.parse(data);
+            });
+        }
+
+        // cachefile does not exist or is invalidated
+        return scraper.getAmazonProductRating({
+            asin: req.params.asin,
+            tld: req.query.tld
+        })
+        .then((data) => {
+            // write new data to cachefile
+            return fs.writeFile(cacheFilePath, JSON.stringify(data))
+            .catch(() => {})
+            .then(() => {
+                return data;
+            });
+
+        });
+
+    })
+    // something was wrong here. send error down to the next error handler
+    .catch(next)
+    .then((data) => {
+        return res.json(data);
+    });
+
+});
 
 router.get('/categories', (req, res, next) => {
 

@@ -62,6 +62,17 @@ export default class AmazonDataExtractor {
 
     }
 
+    getRating() {
+        const document = this.document;
+
+        const data = {};
+
+        data.rating =  ((document.querySelector('#acrPopover') || {getAttribute: () => ''}).getAttribute('title').match(/^(\d+(\.\d)?)/g) || [])[0] || null;
+        data.raters = ((document.querySelector('#acrCustomerReviewText') || {textContent: ''}).textContent.match(/^(\d+)/g) || [])[0] || null;
+
+        return data;
+    }
+
     getCurrency() {
 
         const document = this.document;
@@ -100,6 +111,11 @@ export default class AmazonDataExtractor {
             }
         }
 
+    }
+
+    isPrimeEligible() {
+        const document = this.document;
+        return Boolean(document.querySelectorAll('.prime-signup-ingress').length);
     }
 
     isOutOfStock() {
@@ -157,7 +173,8 @@ export default class AmazonDataExtractor {
             price: this.getPrice(),
             currency: this.getCurrency(),
             title: this.getTitle(),
-            outOfStock: this.isOutOfStock() || undefined
+            outOfStock: this.isOutOfStock(),
+            prime: this.isPrimeEligible(),
         };
 
     }

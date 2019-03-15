@@ -6,8 +6,8 @@ import { getRandomProxy } from './proxylist';
 import { NotFound } from './errors';
 
 const UserAgents = {
-    'chrome': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
-    'iphone': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1'
+    'chrome': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.2924.87 Safari/537.36',
+    'iphone': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/11.1 Mobile/13B137 Safari/601.1'
 };
 
 const loadPage = ({ url, ua }) => {
@@ -48,7 +48,6 @@ export const getAmazonProductDetails = ({ asin, tld='de' }={}) => {
         ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1'
     })
     .then((document) => {
-
         const details = (new AmazonDataExtractor(document)).getData();
 
         if (!details) {
@@ -63,6 +62,29 @@ export const getAmazonProductDetails = ({ asin, tld='de' }={}) => {
 
 };
 
+export const getAmazonProductRating = ({ asin, tld='de' }={}) => {
+    return loadPage({
+        url: `https://www.amazon.${tld}/dp/${asin}/?psc=1`,
+        ua: UserAgents.chrome,
+    })
+    .then((document) => {
+        const rating = (new AmazonDataExtractor(document)).getRating();
+
+        if (!rating) {
+            throw new NotFound();
+        }
+
+        return {
+            asin,
+            tld,
+            datetime: new Date(),
+            details: rating,
+        };
+
+    });
+
+};
+
 export const getAmazonProductImages = ({ asin, tld='de' }={}) => {
 
     return loadPage({
@@ -71,7 +93,6 @@ export const getAmazonProductImages = ({ asin, tld='de' }={}) => {
         ua: 'iphone'
     })
     .then((document) => {
-
         const items = (new AmazonDataExtractor(document)).getImages();
 
         if (!items) {
@@ -139,6 +160,7 @@ export const getProductsFromAmazonBestsellersPage = (url) => {
 
 export default {
     getAmazonProductDetails,
+    getAmazonProductRating,
     getAmazonProductImages,
     getAmazonCategoryList,
 };
